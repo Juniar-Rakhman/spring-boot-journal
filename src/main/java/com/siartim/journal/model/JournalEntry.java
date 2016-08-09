@@ -1,10 +1,9 @@
-package com.siartim.journal.domain;
+package com.siartim.journal.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.siartim.journal.utils.JsonDateSerializer;
+
+import javax.persistence.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -13,9 +12,8 @@ import java.util.Date;
  * Created by a9jr5626 on 8/8/16.
  */
 
-
 @Entity
-public class Journal {
+public class JournalEntry {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,21 +25,20 @@ public class Journal {
     @Transient
     private SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
 
-    public Journal(Long id, String title, String summary, Date date){
+    public JournalEntry(Long id, String title, String summary, Date date){
         this.id = id;
         this.title = title;
         this.summary = summary;
         this.created = date;
     }
 
-    public Journal(String title, String summary, String date) throws ParseException {
+    public JournalEntry(String title, String summary, String date) throws ParseException {
         this.title = title;
         this.summary = summary;
         this.created = format.parse(date);
     }
 
-
-    Journal() {
+    private JournalEntry() {
     }
 
     public Long getId() {
@@ -60,6 +57,7 @@ public class Journal {
         this.title = title;
     }
 
+    @JsonSerialize(using=JsonDateSerializer.class)
     public Date getCreated() {
         return created;
     }

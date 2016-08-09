@@ -1,7 +1,7 @@
 package com.siartim.journal.web;
 
-import com.siartim.journal.domain.Journal;
-import com.siartim.journal.repository.JournalRepository;
+import com.siartim.journal.model.JournalEntry;
+import com.siartim.journal.service.JournalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -18,18 +18,18 @@ import java.util.List;
 public class JournalController {
 
     @Autowired
-    JournalRepository repo;
+    JournalService service;
 
     @RequestMapping(value = "/journal", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public
     @ResponseBody
-    List<Journal> getJournal() {
-        return repo.findAll();
+    List<JournalEntry> getJournal() {
+        return service.findAll();
     }
 
     @RequestMapping("/")
     public String index(Model model) {
-        model.addAttribute("journal", repo.findAll());
+        model.addAttribute("journal", service.findAll());
         return "index";
     }
 }
