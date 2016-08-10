@@ -1,5 +1,6 @@
 package com.siartim.journal.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.siartim.journal.utils.JsonDateSerializer;
 
@@ -67,6 +68,7 @@ public class JournalEntry {
         this.summary = summary;
     }
 
+    @JsonIgnore
     public String getCreatedAsShort() {
         return format.format(created);
     }

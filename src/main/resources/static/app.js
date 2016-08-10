@@ -267,7 +267,7 @@ class JournalEntry extends React.Component {
         return (
             <tr>
                 <td>{this.props.journalEntry.title}</td>
-                <td>{this.props.journalEntry.createdAsShort}</td>
+                <td>{this.props.journalEntry.created}</td>
                 <td>{this.props.journalEntry.summary}</td>
                 <td>
                     <button onClick={this.handleDelete}>Delete</button>

@@ -9,5 +9,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 
 public interface JournalRepository extends JpaRepository<JournalEntry, Long> {
+//    List<JournalEntry> findByCreatedAfter(Date date);
+
+//    @Query("select j from JournalEntry j where j.title like %?1%")
+//    List<JournalEntry> findByCustomQuery(String word);
 }
 

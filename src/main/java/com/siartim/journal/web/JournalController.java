@@ -32,4 +32,10 @@ public class JournalController {
         model.addAttribute("journal", service.findAll());
         return "index";
     }
+
+    @RequestMapping("/report")
+    public String report(Model model) {
+        model.addAttribute("journal", service.findAll());
+        return "report";
+    }
 }
