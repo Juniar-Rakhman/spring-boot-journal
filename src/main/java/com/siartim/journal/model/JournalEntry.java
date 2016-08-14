@@ -14,6 +14,7 @@ import java.util.Date;
  */
 
 @Entity
+@Table(name="entry")
 public class JournalEntry {
 
     @Id

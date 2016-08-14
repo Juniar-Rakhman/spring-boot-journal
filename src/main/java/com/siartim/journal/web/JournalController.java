@@ -1,41 +1,33 @@
 package com.siartim.journal.web;
 
-import com.siartim.journal.model.JournalEntry;
-import com.siartim.journal.service.JournalService;
+import com.siartim.journal.repository.JournalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
 
 /**
  * Created by a9jr5626 on 8/8/16.
  */
-@Controller
+@RestController
 public class JournalController {
 
     @Autowired
-    JournalService service;
+    JournalRepository repo;
 
-    @RequestMapping(value = "/journal", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public
-    @ResponseBody
-    List<JournalEntry> getJournal() {
-        return service.findAll();
+    @RequestMapping(value="/", method = RequestMethod.GET)
+    public ModelAndView index(ModelAndView modelAndView){
+        modelAndView.setViewName("index");
+        modelAndView.addObject("journal", repo.findAll());
+        return modelAndView;
     }
 
-    @RequestMapping("/")
-    public String index(Model model) {
-        model.addAttribute("journal", service.findAll());
-        return "index";
-    }
-
-    @RequestMapping("/report")
-    public String report(Model model) {
-        model.addAttribute("journal", service.findAll());
-        return "report";
+    @RequestMapping(value="/report", method = RequestMethod.GET)
+    public ModelAndView report(ModelAndView modelAndView){
+        modelAndView.setViewName("report");
+        modelAndView.addObject("journal", repo.findAll());
+        return modelAndView;
     }
 }
